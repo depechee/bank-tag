@@ -27,21 +27,20 @@ a{display:inline-block;margin-top:10px;color:var(--accent);font-size:.9rem}
 <body>
 <main>
   <h1>Copy number &amp; open app</h1>
-  <p>Tap your bank, then paste the number inside the app.</p>
-  <div class="num" id="num"></div>
+  <p>Tap your bank, then paste the copied number inside the app.</p>
   <button id="bog" type="button">Bank of Georgia (BOG)</button>
   <button class="tbc" id="tbc" type="button">TBC Bank</button>
   <div class="status" id="status" role="status"></div>
 </main>
 <script>
 // Settings: change these two lines if needed
-var NUMBER = "01029017111";
+var BOG_VALUE = "01029017111";
+var TBC_VALUE = "GE03TB7513845061100068";
 var IS_ANDROID = /android/i.test(navigator.userAgent);
 // iPhone: App Store links. Android: Google Play (replace the search links below with the exact app links if you have them)
 var BOG_URL = IS_ANDROID ? "https://play.google.com/store/search?q=Bank%20of%20Georgia&c=apps" : "https://apps.apple.com/us/app/bank-of-georgia/id1159368231";
 var TBC_URL = IS_ANDROID ? "https://play.google.com/store/search?q=TBC%20Bank&c=apps" : "https://apps.apple.com/us/app/tbc-bank/id766598432";
 
-document.getElementById("num").textContent = NUMBER;
 
 function fallbackCopy(text){
   try{
@@ -63,16 +62,16 @@ async function copyText(text){
   }catch(e){}
   return fallbackCopy(text);
 }
-function wire(id, url, name){
+function wire(id, url, name, value){
   document.getElementById(id).addEventListener("click", async function(){
     var s = document.getElementById("status");
-    var ok = await copyText(NUMBER);
-    s.textContent = (ok ? "Number copied. Opening " : "Couldn’t copy automatically. Opening ") + name + "…";
+    var ok = await copyText(value);
+    s.textContent = (ok ? "Copied " + value + ". Opening " : "Couldn’t copy automatically. Opening ") + name + "…";
     setTimeout(function(){ window.location.href = url; }, 500);
   });
 }
-wire("bog", BOG_URL, "BOG");
-wire("tbc", TBC_URL, "TBC");
+wire("bog", BOG_URL, "BOG", BOG_VALUE);
+wire("tbc", TBC_URL, "TBC", TBC_VALUE);
 </script>
 </body>
 </html>
