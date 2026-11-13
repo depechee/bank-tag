@@ -36,8 +36,10 @@ a{display:inline-block;margin-top:10px;color:var(--accent);font-size:.9rem}
 <script>
 // Settings: change these two lines if needed
 var NUMBER = "01023008085";
-var BOG_URL = "https://apps.apple.com/us/app/bank-of-georgia/id1159368231";
-var TBC_URL = "https://apps.apple.com/us/app/tbc-bank/id766598432";
+var IS_ANDROID = /android/i.test(navigator.userAgent);
+// iPhone: App Store links. Android: Google Play (replace the search links below with the exact app links if you have them)
+var BOG_URL = IS_ANDROID ? "https://play.google.com/store/search?q=Bank%20of%20Georgia&c=apps" : "https://apps.apple.com/us/app/bank-of-georgia/id1159368231";
+var TBC_URL = IS_ANDROID ? "https://play.google.com/store/search?q=TBC%20Bank&c=apps" : "https://apps.apple.com/us/app/tbc-bank/id766598432";
 
 document.getElementById("num").textContent = NUMBER;
 
